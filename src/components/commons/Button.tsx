@@ -2,13 +2,14 @@ import type { ButtonHTMLAttributes, FC } from "react";
 import { cn } from "../../utils/functions";
 const variants = {
   primary: "bg-amber-400 text-zinc-800 shadow-lg hover:bg-amber-500",
-  outlined: "border border-amber-500 hover:bg-amber-100",
+  secondary: "bg-zinc-300 hover:bg-zinc-400",
+  outlined: "border border-zinc-300 hover:bg-zinc-200",
 };
 
 const sizes = {
-  sm: "px-2 py-1 text-sm",
-  md: "px-3 py-2",
-  lg: "px-6 py-3 text-lg",
+  sm: "px-2 h-8 text-sm",
+  md: "px-3 h-10",
+  lg: "px-6 h-12 text-lg",
 };
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -25,7 +26,7 @@ export const Button: FC<Props> = ({
   return (
     <button
       className={cn(
-        "rounded-full cursor-pointer transition-colors disabled:cursor-not-allowed disabled:opacity-50 flex gap-1 items-center justify-center",
+        "rounded-lg cursor-pointer transition-colors disabled:cursor-not-allowed disabled:opacity-50 flex gap-1 items-center justify-center",
         variants[variant],
         sizes[size],
         className

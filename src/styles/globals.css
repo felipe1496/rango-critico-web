@@ -3,6 +3,7 @@
 @theme {
   --font-title: "DM Serif Text", "sans-serif";
   --font-body: "Rubik", "sans-serif";
+  --color-muted: #71717a;
 }
 
 body {

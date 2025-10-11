@@ -8,10 +8,15 @@ export type GetRestaurantsResponse = {
     restaurants: {
       id: string;
       name: string;
-      description: string;
-      avatar_url: string;
+      description?: string | null;
+      avatar_url?: string | null;
       created_at: string;
     }[];
+  };
+  query: {
+    page: number;
+    per_page: number;
+    next_page: number;
   };
 };
 

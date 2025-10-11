@@ -5,4 +5,7 @@ export const routes = {
   auth: {
     login: "/login",
   },
+  account: {
+    profile: "/:username",
+  },
 };

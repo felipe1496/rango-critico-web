@@ -8,9 +8,10 @@ import { cn } from "../../utils/functions";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label?: ReactNode | null;
+  error?: string;
 }
 
-export const Input: FC<Props> = ({ label, ...props }) => {
+export const Input: FC<Props> = ({ label, className, error, ...props }) => {
   const Wrapper = label ? "label" : Fragment;
 
   const wrapperProps = {};
@@ -35,7 +36,9 @@ export const Input: FC<Props> = ({ label, ...props }) => {
       <input
         type="text"
         className={cn(
-          "w-full bg-white px-3 h-8 border border-zinc-200 rounded-md"
+          "w-full bg-white px-3 h-8 border border-zinc-200 rounded-md",
+          error && "border-red-500",
+          className
         )}
         {...props}
       />

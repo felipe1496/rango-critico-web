@@ -25,3 +25,25 @@ export type Query<TData = any> = PartialBy<
   Omit<UseQueryOptions<TData, ApiError>, "queryFn">,
   "queryKey"
 >;
+
+export type Operator =
+  | "eq"
+  | "ne"
+  | "gt"
+  | "gte"
+  | "lt"
+  | "lte"
+  | "in"
+  | "nin"
+  | "like"
+  | "nlike"
+  | "sw"
+  | "ew"
+  | "is"
+  | "isn";
+
+export type Filter = {
+  and: (field: string, operator: Operator, value: string) => Filter;
+  or: (conds: [string, Operator, string][]) => Filter;
+  build: () => string | null;
+};

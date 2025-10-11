@@ -10,6 +10,7 @@ import { HomePage } from "./pages/landing/HomePage";
 import { LandingPage } from "./pages/landing/LandingPage";
 import { useEffect } from "react";
 import { Layout } from "./components/layout";
+import { ProfilePage } from "./pages/account/ProfilePage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -51,6 +52,7 @@ export const App: FCC = () => {
                 index
                 element={sessionUser ? <HomePage /> : <LandingPage />}
               />
+              <Route path={routes.account.profile} element={<ProfilePage />} />
             </Route>
           </Routes>
         ) : null}

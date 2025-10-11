@@ -2,6 +2,7 @@ import type { ComponentProps, FC } from "react";
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
 import { XIcon } from "lucide-react";
 import { cn } from "../../utils/functions";
+import type { FCC } from "../../utils/types";
 
 export const AlertDialog = AlertDialogPrimitive.Root;
 export const AlertDialogTrigger = AlertDialogPrimitive.Trigger;
@@ -36,10 +37,7 @@ export const AlertDialogHeader: FC<ComponentProps<"header">> = ({
 }) => {
   return (
     <header
-      className={cn(
-        "flex flex-col px-4 py-3 border-b border-zinc-200",
-        props.className
-      )}
+      className={cn("flex flex-col px-4 py-3 shadow-md", props.className)}
       {...props}
     />
   );
@@ -63,4 +61,19 @@ export const AlertDialogDescription: FC<
   />
 );
 export const AlertDialogCancel = AlertDialogPrimitive.Cancel;
-export const AlertDialogAction = AlertDialogPrimitive.Action;
+
+export const AlertDialogFooter: FCC<ComponentProps<"footer">> = ({
+  children,
+  className,
+  ...props
+}) => (
+  <footer
+    className={cn(
+      "flex w-full justify-center gap-2 p-4 rounded-b-lg",
+      className
+    )}
+    {...props}
+  >
+    {children}
+  </footer>
+);

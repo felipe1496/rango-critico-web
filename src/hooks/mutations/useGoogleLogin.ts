@@ -17,6 +17,7 @@ export type GoogleLoginResponse = {
       email: string;
       avatar_url: string;
       created_at: string;
+      username: string;
     };
     session: {
       token: string;
