@@ -4,7 +4,6 @@ import { Divider } from "./commons/Divider";
 import { Card } from "./commons/Card";
 import { StoreIcon } from "lucide-react";
 import dayjs from "dayjs";
-import { filter } from "../utils/functions";
 import { Link } from "react-router";
 
 interface Props {
@@ -14,7 +13,7 @@ interface Props {
 
 export const ReviewsList: FC<Props> = ({ username, preview }) => {
   const { data, isPending } = useGetReviews({
-    filter: filter().and("username", "eq", `'${username}'`),
+    username,
     perPage: preview ? 3 : undefined,
     queryKey: [username],
   });
