@@ -112,7 +112,7 @@ export const ReviewDialog: FC<Props> = ({ isOpen, onIsOpenChange }) => {
         review: {
           rating: review.rating,
           comment: review.comment,
-          visited_at: review.visited_at,
+          visited_at: dayjs(review.visited_at).toISOString(),
           restaurant_id: review.restaurant!.id,
         },
       },
