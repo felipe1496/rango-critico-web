@@ -31,14 +31,18 @@ export type GetReviewsResponse = {
 export const useGetReviews = ({
   queryKey = [],
   filter,
+  perPage,
   ...props
-}: Query<GetReviewsResponse> & { filter?: Filter } = {}) => {
+}: Query<GetReviewsResponse> & { filter?: Filter; perPage?: number } = {}) => {
   return useQuery({
     queryKey: [QUERY_KEYS.QUERIES.GET_REVIEWS, ...queryKey],
     queryFn: async () => {
       const { data } = await api.get("/v1/reviews", {
         params: {
           filter: filter?.build(),
+          per_page: perPage,
+          sort: "review_visited_at",
+          order: "desc",
         },
       });
 

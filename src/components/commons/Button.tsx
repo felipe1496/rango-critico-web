@@ -1,5 +1,7 @@
 import type { ButtonHTMLAttributes, FC } from "react";
+import { Slot } from "@radix-ui/react-slot";
 import { cn } from "../../utils/functions";
+
 const variants = {
   primary: "bg-amber-400 text-zinc-800 shadow-lg hover:bg-amber-500",
   secondary: "bg-zinc-300 hover:bg-zinc-400",
@@ -15,16 +17,20 @@ const sizes = {
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: keyof typeof variants;
   size?: keyof typeof sizes;
+  asChild?: boolean;
 }
 
 export const Button: FC<Props> = ({
   className,
   variant = "primary",
   size = "md",
+  asChild = false,
   ...props
 }) => {
+  const Comp = asChild ? Slot : "button";
+
   return (
-    <button
+    <Comp
       className={cn(
         "rounded-lg cursor-pointer transition-colors disabled:cursor-not-allowed disabled:opacity-50 flex gap-1 items-center justify-center",
         variants[variant],

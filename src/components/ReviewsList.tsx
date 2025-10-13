@@ -5,14 +5,18 @@ import { Card } from "./commons/Card";
 import { StoreIcon } from "lucide-react";
 import dayjs from "dayjs";
 import { filter } from "../utils/functions";
+import { Link } from "react-router";
 
 interface Props {
   username: string;
+  preview?: boolean;
 }
 
-export const ReviewsList: FC<Props> = ({ username }) => {
+export const ReviewsList: FC<Props> = ({ username, preview }) => {
   const { data, isPending } = useGetReviews({
     filter: filter().and("username", "eq", `'${username}'`),
+    perPage: preview ? 3 : undefined,
+    queryKey: [username],
   });
 
   if (isPending) {
@@ -21,14 +25,24 @@ export const ReviewsList: FC<Props> = ({ username }) => {
 
   if (data) {
     return (
-      <section>
-        <h1 className="font-title font-bold text-3xl">Suas Críticas</h1>
+      <section className="w-full">
+        <div className="flex w-full justify-between">
+          <h1 className="font-title font-bold text-2xl">Suas Críticas</h1>
+
+          <Link
+            to="#"
+            className="flex items-end text-xs hover:underline uppercase"
+          >
+            Visualizar Todas
+          </Link>
+        </div>
 
         <Divider className="my-2" />
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 items-center w-full">
+          {!data.data.reviews.length && <div>Nenhuma crítica no momento</div>}
           {data.data.reviews.map((review) => (
-            <Card key={review.id}>
+            <Card key={review.id} className="w-full">
               <article className="flex flex-col gap-2">
                 <header className="flex items-center gap-2">
                   <div>
