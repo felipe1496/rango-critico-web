@@ -20,7 +20,7 @@ export const AlertDialogContent: FC<
 > = ({ className, ...props }) => {
   return (
     <AlertDialogPrimitive.Portal>
-      <AlertDialogPrimitive.Overlay className="fixed inset-0 bg-black/50 z-50" />
+      <AlertDialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs" />
       <AlertDialogPrimitive.Content
         className={cn(
           "bg-white rounded-2xl fixed top-[50%] left-[50%] z-50 translate-x-[-50%] translate-y-[-50%] shadow-md flex flex-col",
