@@ -28,7 +28,7 @@ export const createStore = (<T>() => {
 }) as typeof actualCreate;
 
 export const filter = (): Filter => {
-  const filterStrs: string[] = [];
+  let filterStrs: string[] = [];
 
   const and = (field: string, operator: Operator, value: string) => {
     filterStrs.push(`${field} ${operator} ${value}`);
@@ -44,10 +44,16 @@ export const filter = (): Filter => {
     return filterStrs.length ? filterStrs.join(" and ") : null;
   };
 
+  const clear = () => {
+    filterStrs = [];
+    return _this;
+  };
+
   const _this = {
     and,
     or,
     build,
+    clear,
   };
 
   return _this;

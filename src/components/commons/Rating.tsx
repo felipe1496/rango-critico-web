@@ -6,14 +6,12 @@ interface Props {
   rating: number;
   disabled?: boolean;
   onChange?: (newRating: number) => void;
-  readonly?: boolean;
   id: string;
 }
 
 export const Rating: FC<Props> = ({
   rating,
   disabled = false,
-  readonly = false,
   onChange,
   id,
 }) => {
@@ -28,7 +26,7 @@ export const Rating: FC<Props> = ({
   // TODO: subtituir rating-hidden por X
   return (
     <div className="flex items-center">
-      {!readonly && (
+      {!disabled && (
         <>
           <input
             type="radio"

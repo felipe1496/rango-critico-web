@@ -46,4 +46,5 @@ export type Filter = {
   and: (field: string, operator: Operator, value: string) => Filter;
   or: (conds: [string, Operator, string][]) => Filter;
   build: () => string | null;
+  clear: () => Filter;
 };

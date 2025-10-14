@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { QUERY_KEYS } from "../../constants/queryKeys";
 import { api } from "../../services/api";
-import type { Query } from "../../utils/types";
+import type { Filter, Query } from "../../utils/types";
 
 export type GetReviewsResponse = {
   data: {
@@ -32,8 +32,13 @@ export const useGetReviews = ({
   queryKey = [],
   username,
   perPage,
+  filter,
   ...props
-}: Query<GetReviewsResponse> & { username: string; perPage?: number }) => {
+}: Query<GetReviewsResponse> & {
+  username: string;
+  perPage?: number;
+  filter?: Filter;
+}) => {
   return useQuery({
     queryKey: [QUERY_KEYS.QUERIES.GET_REVIEWS, ...queryKey],
     queryFn: async () => {
@@ -42,6 +47,7 @@ export const useGetReviews = ({
           per_page: perPage,
           sort: "review_visited_at",
           order: "desc",
+          filter: filter?.build(),
         },
       });
 

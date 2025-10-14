@@ -8,4 +8,7 @@ export const routes = {
   account: {
     profile: "/:username",
   },
+  reviews: {
+    index: "/:username/reviews",
+  },
 };
