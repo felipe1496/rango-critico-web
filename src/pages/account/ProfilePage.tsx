@@ -1,6 +1,6 @@
 import { ReviewsList } from "../../components/ReviewsList";
 import { useStrictParams } from "../../hooks/useStrictParams";
-import { ProfileInfo } from "../../components/Profile";
+import { ProfileInfo } from "../../components/ProfileInfo";
 
 export const ProfilePage = () => {
   const { username } = useStrictParams<{ username: string }>();

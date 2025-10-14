@@ -4,6 +4,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "./commons/Avatar";
 import { useAppStore } from "../stores/app-store";
 import { Button } from "./commons/Button";
 import { Link } from "react-router";
+import { SimpleError } from "./commons/SimpleError";
+import { toast } from "sonner";
 
 interface Props {
   username: string;
@@ -12,7 +14,7 @@ interface Props {
 export const ProfileInfo: FC<Props> = ({ username }) => {
   const { sessionUser } = useAppStore();
 
-  const { data: profileData } = useGetProfile({ username });
+  const { data: profileData, error } = useGetProfile({ username });
 
   if (profileData) {
     return (
@@ -40,6 +42,13 @@ export const ProfileInfo: FC<Props> = ({ username }) => {
           )}
         </div>
       </section>
+    );
+  }
+
+  if (error) {
+    toast.error("Ocorreu um erro ao carregar as informações do perfil");
+    return (
+      <SimpleError message="Ocorreu um erro ao carregar as informações do perfil" />
     );
   }
 };

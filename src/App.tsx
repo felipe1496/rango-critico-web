@@ -43,7 +43,7 @@ export const App: FCC = () => {
 
   return (
     <GoogleOAuthProvider clientId="341378880284-flneomnqoan713odlle1v95lvc4efpoi.apps.googleusercontent.com">
-      <Toaster richColors position="bottom-left" />
+      <Toaster richColors position="top-center" />
       <QueryClientProvider client={queryClient}>
         {shouldRenderApp ? (
           <Routes>

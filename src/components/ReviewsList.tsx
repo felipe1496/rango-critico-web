@@ -13,6 +13,8 @@ import { Controller, useForm } from "react-hook-form";
 import { Switch } from "./commons/Switch";
 import { filter } from "../utils/functions";
 import { clone } from "lodash";
+import { toast } from "sonner";
+import { Error } from "./commons/Error";
 
 type FilterType = {
   name: string;
@@ -30,7 +32,7 @@ export const ReviewsList: FC<Props> = ({ username, preview }) => {
   const [ratingFilterIsEnabled, setRatingFilterIsEnabled] = useState(false);
   const [filterInst, setFilterInst] = useState(filter());
 
-  const { data, isPending } = useGetReviews({
+  const { data, isPending, error } = useGetReviews({
     filter: filterInst,
     username,
     perPage: preview ? 3 : undefined,
@@ -47,7 +49,6 @@ export const ReviewsList: FC<Props> = ({ username, preview }) => {
   });
 
   const onSubmit = (data: FilterType) => {
-    console.log("oi");
     setFilterInst((_inst) => {
       const inst = clone(_inst);
       inst.clear();
@@ -81,67 +82,9 @@ export const ReviewsList: FC<Props> = ({ username, preview }) => {
     });
   };
 
-  if (isPending) {
-    return <p>Loading...</p>;
-  }
-
-  if (data) {
-    return (
-      <section className="w-full">
-        <div className="flex w-full justify-between">
-          <h1 className="font-title font-bold text-2xl">Suas Críticas</h1>
-
-          {preview ? (
-            <Link
-              to={routes.reviews.index.replace(":username", username)}
-              className="flex items-end text-xs hover:underline uppercase"
-            >
-              Visualizar Todas
-            </Link>
-          ) : (
-            <FilterOptions
-              onClear={() => {
-                setFilterInst(filter());
-                reset();
-              }}
-              onApply={handleSubmit(onSubmit)}
-            >
-              <Input label="Restaurante" {...register("name")} />
-              <Input label="Data" type="date" {...register("visited_at")} />
-              <Input label="Crítica" {...register("comment")} />
-              <label>
-                <Controller
-                  name="rating"
-                  control={control}
-                  render={({ field: { onChange, value } }) => (
-                    <>
-                      <div className="flex items-center gap-2">
-                        <span>Avaliação</span>
-                        <Switch
-                          id="rating-filter-is-enabled"
-                          onChange={(v) => {
-                            setRatingFilterIsEnabled(v);
-                            onChange(0);
-                          }}
-                          checked={ratingFilterIsEnabled}
-                        />
-                      </div>
-                      <Rating
-                        id="rating-filter"
-                        rating={value}
-                        onChange={onChange}
-                        disabled={!ratingFilterIsEnabled}
-                      />
-                    </>
-                  )}
-                />
-              </label>
-            </FilterOptions>
-          )}
-        </div>
-
-        <Divider className="my-2" />
-
+  const renderData = () => {
+    if (data) {
+      return (
         <div className="flex flex-col gap-3 items-center w-full">
           {!data.data.reviews.length && <div>Nenhuma crítica no momento</div>}
           {data.data.reviews.map((review) => (
@@ -176,9 +119,76 @@ export const ReviewsList: FC<Props> = ({ username, preview }) => {
             </Card>
           ))}
         </div>
-      </section>
-    );
+      );
+    }
+
+    if (error) {
+      toast.error("Ocorreu um erro ao carregar as críticas");
+      return <Error message="Ocorreu um erro ao carregar as críticas" />;
+    }
+  };
+
+  if (isPending) {
+    return <p>Loading...</p>;
   }
 
-  return null;
+  return (
+    <section className="w-full">
+      <div className="flex w-full justify-between">
+        <h1 className="font-title font-bold text-2xl">Suas Críticas</h1>
+
+        {preview ? (
+          <Link
+            to={routes.reviews.index.replace(":username", username)}
+            className="flex items-end text-xs hover:underline uppercase"
+          >
+            Visualizar Todas
+          </Link>
+        ) : (
+          <FilterOptions
+            onClear={() => {
+              setFilterInst(filter());
+              reset();
+            }}
+            onApply={handleSubmit(onSubmit)}
+          >
+            <Input label="Restaurante" {...register("name")} />
+            <Input label="Data" type="date" {...register("visited_at")} />
+            <Input label="Crítica" {...register("comment")} />
+            <label>
+              <Controller
+                name="rating"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <>
+                    <div className="flex items-center gap-2">
+                      <span>Avaliação</span>
+                      <Switch
+                        id="rating-filter-is-enabled"
+                        onChange={(v) => {
+                          setRatingFilterIsEnabled(v);
+                          onChange(0);
+                        }}
+                        checked={ratingFilterIsEnabled}
+                      />
+                    </div>
+                    <Rating
+                      id="rating-filter"
+                      rating={value}
+                      onChange={onChange}
+                      disabled={!ratingFilterIsEnabled}
+                    />
+                  </>
+                )}
+              />
+            </label>
+          </FilterOptions>
+        )}
+      </div>
+
+      <Divider className="my-2" />
+
+      {renderData()}
+    </section>
+  );
 };
