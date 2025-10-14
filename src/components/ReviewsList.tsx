@@ -147,19 +147,26 @@ export const ReviewsList: FC<Props> = ({ username, preview }) => {
           {data.data.reviews.map((review) => (
             <Card key={review.id} className="w-full">
               <article className="flex flex-col gap-2">
-                <header className="flex items-center gap-2">
-                  <div>
-                    <div className="bg-zinc-200 rounded-full p-3">
-                      <StoreIcon className="size-5" />
+                <header className="flex items-center gap-3">
+                  <div className="flex gap-3 items-center">
+                    <div>
+                      <div className="bg-zinc-200 rounded-full p-3">
+                        <StoreIcon className="size-5" />
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex flex-col gap-1">
+
                     {review.restaurant.name && (
                       <h2 className="font-title font-bold text-xl">
                         {review.restaurant.name}
                       </h2>
                     )}
                   </div>
+
+                  <Rating
+                    id={`review-list-card-${review.id}`}
+                    rating={review.rating}
+                    disabled
+                  />
                 </header>
                 {review.comment && <p>{review.comment}</p>}
                 <span className="text-sm text-muted">
