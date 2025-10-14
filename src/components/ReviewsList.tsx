@@ -109,7 +109,7 @@ export const ReviewsList: FC<Props> = ({ username, preview }) => {
               <Input label="Restaurante" {...register("name")} />
               <Input label="Data" type="date" {...register("visited_at")} />
               <Input label="Crítica" {...register("comment")} />
-              <label htmlFor="">
+              <label>
                 <Controller
                   name="rating"
                   control={control}
