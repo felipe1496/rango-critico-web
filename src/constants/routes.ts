@@ -7,6 +7,7 @@ export const routes = {
   },
   account: {
     profile: "/:username",
+    settings: "/settings",
   },
   reviews: {
     index: "/:username/reviews",

@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { Layout } from "./components/layout";
 import { ProfilePage } from "./pages/account/ProfilePage";
 import { ReviewsPage } from "./pages/reviews/ReviewsPage";
+import { SettingsPage } from "./pages/account/SettingsPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -54,6 +55,10 @@ export const App: FCC = () => {
                 element={sessionUser ? <HomePage /> : <LandingPage />}
               />
               <Route path={routes.account.profile} element={<ProfilePage />} />
+              <Route
+                path={routes.account.settings}
+                element={<SettingsPage />}
+              />
               <Route path={routes.reviews.index} element={<ReviewsPage />} />
             </Route>
           </Routes>

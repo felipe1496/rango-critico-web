@@ -3,15 +3,16 @@ import type {
   UseMutationOptions,
   UseQueryOptions,
 } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
 import type { FC, ReactNode } from "react";
 
 export type FCC<T = object> = FC<{ children?: ReactNode } & T>;
 
-export type ApiError = {
+export type ApiError = AxiosError<{
   message: string;
   status: number;
   error: string;
-};
+}>;
 
 export type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 

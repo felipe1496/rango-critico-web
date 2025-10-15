@@ -6,6 +6,7 @@ import { Button } from "./commons/Button";
 import { Link } from "react-router";
 import { SimpleError } from "./commons/SimpleError";
 import { toast } from "sonner";
+import { routes } from "../constants/routes";
 
 interface Props {
   username: string;
@@ -37,7 +38,7 @@ export const ProfileInfo: FC<Props> = ({ username }) => {
 
           {sessionUser?.username === username && (
             <Button size="sm" variant="secondary" asChild>
-              <Link to="#">Editar Perfil</Link>
+              <Link to={routes.account.settings}>Editar Perfil</Link>
             </Button>
           )}
         </div>

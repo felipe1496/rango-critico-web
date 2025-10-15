@@ -8,11 +8,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../commons/DropdownMenu";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import { routes } from "../../constants/routes";
 import { DoorOpenIcon, PlusIcon, UserIcon } from "lucide-react";
 import { ReviewDialog } from "../ReviewDialog";
-import { useQueryClient } from "@tanstack/react-query";
+
+import { useSession } from "../../hooks/useSession";
 
 export const TopBar: FC = () => {
   const [createReviewDialogIsOpen, setCreateReviewDialogIsOpen] =
@@ -20,9 +21,7 @@ export const TopBar: FC = () => {
 
   const { sessionUser } = useAppStore();
 
-  const navigate = useNavigate();
-
-  const queryClient = useQueryClient();
+  const { logout } = useSession();
 
   const renderUserSection = () => {
     if (sessionUser) {
@@ -56,10 +55,7 @@ export const TopBar: FC = () => {
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
-                localStorage.clear();
-                queryClient.clear();
-                queryClient.cancelQueries();
-                navigate(routes.auth.login, { replace: true });
+                logout();
               }}
               className="flex items-center gap-1 text-red-500 hover:bg-red-100"
             >

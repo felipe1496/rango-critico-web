@@ -11,7 +11,13 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   error?: string;
 }
 
-export const Input: FC<Props> = ({ label, className, error, ...props }) => {
+export const Input: FC<Props> = ({
+  label,
+  className,
+  error,
+  disabled,
+  ...props
+}) => {
   const Wrapper = label ? "label" : Fragment;
 
   const wrapperProps = {};
@@ -37,9 +43,11 @@ export const Input: FC<Props> = ({ label, className, error, ...props }) => {
         type="text"
         className={cn(
           "w-full bg-white px-3 h-8 border border-zinc-200 rounded-md",
+          disabled && "opacity-50 cursor-not-allowed",
           error && "border-red-500",
           className
         )}
+        disabled={disabled}
         {...props}
       />
     </Wrapper>

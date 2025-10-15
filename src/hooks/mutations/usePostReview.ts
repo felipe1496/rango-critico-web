@@ -37,7 +37,7 @@ export const usePostReview = ({
   ...props
 }: Mutation<PostReviewResponse, PostReviewRequest> = {}) => {
   return useMutation({
-    mutationKey: [QUERY_KEYS.MUTATIONS.GOOGLE_LOGIN, ...mutationKey],
+    mutationKey: [QUERY_KEYS.MUTATIONS.POST_REVIEW, ...mutationKey],
     mutationFn: async (body) => {
       const { data } = await api.post("/v1/reviews", body);
 
