@@ -67,7 +67,7 @@ export const TopBar: FC = () => {
     }
 
     return (
-      <Button asChild>
+      <Button asChild className="font-medium">
         <Link to={routes.auth.login}>Entrar</Link>
       </Button>
     );
