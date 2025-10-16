@@ -1,19 +1,19 @@
 import type { FC } from "react";
 import { useGetProfile } from "../hooks/queries/useGetProfile";
 import { Avatar, AvatarFallback, AvatarImage } from "./commons/Avatar";
-import { useAppStore } from "../stores/app-store";
 import { Button } from "./commons/Button";
 import { Link } from "react-router";
 import { SimpleError } from "./commons/SimpleError";
 import { toast } from "sonner";
 import { routes } from "../constants/routes";
+import { useSession } from "../hooks/useSession";
 
 interface Props {
   username: string;
 }
 
 export const ProfileInfo: FC<Props> = ({ username }) => {
-  const { sessionUser } = useAppStore();
+  const { sessionUser } = useSession();
 
   const { data: profileData, error } = useGetProfile({ username });
 

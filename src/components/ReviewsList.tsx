@@ -15,6 +15,7 @@ import { filter } from "../utils/functions";
 import { clone } from "lodash";
 import { toast } from "sonner";
 import { Error } from "./commons/Error";
+import { Loader } from "./commons/Loader";
 
 type FilterType = {
   name: string;
@@ -36,7 +37,7 @@ export const ReviewsList: FC<Props> = ({ username, preview }) => {
     filter: filterInst,
     username,
     perPage: preview ? 3 : undefined,
-    queryKey: [username, filterInst.build()],
+    queryKey: [username, preview, filterInst.build()],
   });
 
   const { register, control, handleSubmit, reset } = useForm<FilterType>({
@@ -83,6 +84,10 @@ export const ReviewsList: FC<Props> = ({ username, preview }) => {
   };
 
   const renderData = () => {
+    if (isPending) {
+      return <Loader />;
+    }
+
     if (data) {
       return (
         <div className="flex flex-col gap-3 items-center w-full">
@@ -128,14 +133,10 @@ export const ReviewsList: FC<Props> = ({ username, preview }) => {
     }
   };
 
-  if (isPending) {
-    return <p>Loading...</p>;
-  }
-
   return (
     <section className="w-full">
       <div className="flex w-full justify-between">
-        <h1 className="font-title font-bold text-2xl">Suas Críticas</h1>
+        <h1 className="font-title font-bold text-2xl">Críticas</h1>
 
         {preview ? (
           <Link
@@ -146,6 +147,7 @@ export const ReviewsList: FC<Props> = ({ username, preview }) => {
           </Link>
         ) : (
           <FilterOptions
+            disabled={isPending}
             onClear={() => {
               setFilterInst(filter());
               reset();

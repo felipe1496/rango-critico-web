@@ -24,8 +24,9 @@ const queryClient = new QueryClient({
 });
 
 export const App: FCC = () => {
-  const { sessionUser, setSessionUser, shouldRenderApp, setShouldRenderApp } =
-    useAppStore();
+  const { shouldRenderApp, setShouldRenderApp } = useAppStore();
+
+  const { sessionUser, setSessionUser } = useAppStore();
 
   useEffect(() => {
     const storedUser = localStorage.getItem("session_user");

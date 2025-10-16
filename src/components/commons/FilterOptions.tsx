@@ -1,4 +1,4 @@
-import type { FormEvent, ReactNode } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import type { FCC } from "../../utils/types";
 
 import {
@@ -10,28 +10,47 @@ import {
 } from "./Popover";
 import { Button } from "./Button";
 import { FunnelIcon, Trash2Icon } from "lucide-react";
+import { cn } from "../../utils/functions";
 
 interface Props {
   trigger?: ReactNode;
   onApply?: (evt: FormEvent<HTMLFormElement>) => void;
   onClear?: () => void;
+  disabled?: boolean;
 }
 
 export const FilterOptions: FCC<Props> = ({
   children,
   onApply,
   onClear,
+  disabled,
   trigger = (
-    <button className="uppercase hover:underline items-end text-xs flex cursor-pointer">
+    <button
+      className={cn(
+        "uppercase items-end text-xs flex disabled:text-muted",
+        disabled
+          ? "text-muted cursor-not-allowed"
+          : "hover:underline cursor-pointer"
+      )}
+      disabled={disabled}
+    >
       Opções de Filtros
     </button>
   ),
 }) => {
+  const [open, setOpen] = useState(false);
+
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>{trigger}</PopoverTrigger>
       <PopoverContent align="end" className="w-96">
-        <form onSubmit={onApply}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            setOpen(false);
+            onApply?.(e);
+          }}
+        >
           <PopoverXClose />
           <div className="px-4 py-2">
             <span className="font-title font-bold text-xl">Filtros</span>

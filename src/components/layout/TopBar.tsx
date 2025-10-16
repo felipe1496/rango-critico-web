@@ -1,5 +1,4 @@
 import { useState, type FC } from "react";
-import { useAppStore } from "../../stores/app-store";
 import { Button } from "../commons/Button";
 import { Avatar, AvatarFallback, AvatarImage } from "../commons/Avatar";
 import {
@@ -19,7 +18,7 @@ export const TopBar: FC = () => {
   const [createReviewDialogIsOpen, setCreateReviewDialogIsOpen] =
     useState(false);
 
-  const { sessionUser } = useAppStore();
+  const { sessionUser } = useSession();
 
   const { logout } = useSession();
 
@@ -78,7 +77,10 @@ export const TopBar: FC = () => {
     <header className="w-screen h-16 fixed top-0 items-center justify-center flex">
       <div className="w-full max-w-5xl flex justify-between items-center">
         <Link to={routes.landing.home}>
-          <h1 className="font-title text-3xl font-bold">Rango Crítico</h1>
+          <div className="flex items-center gap-2">
+            <img src="/logo.webp" alt="app logo" className="size-10" />
+            <h1 className="font-title text-3xl font-bold">Rango Crítico</h1>
+          </div>
         </Link>
 
         <div className="flex gap-6 items-center">

@@ -1,7 +1,6 @@
 import type { FC } from "react";
 import { Input } from "../../../components/commons/Input";
 import { useForm } from "react-hook-form";
-import { useAppStore } from "../../../stores/app-store";
 import { Button } from "../../../components/commons/Button";
 import { usePatchUser } from "../../../hooks/mutations/usePatchUser";
 import z from "zod";
@@ -17,7 +16,7 @@ const schema = z.object({
 });
 
 export const ProfileForm: FC = () => {
-  const { sessionUser } = useAppStore();
+  const { sessionUser } = useSession();
 
   const { logout } = useSession();
 
