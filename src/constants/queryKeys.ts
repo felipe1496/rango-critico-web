@@ -8,5 +8,7 @@ export const QUERY_KEYS = {
     GOOGLE_LOGIN: "post-google-login-mutation",
     POST_REVIEW: "post-review-mutation",
     PATCH_USER: "patch-user-mutation",
+    POST_FOLLOW: "post-follow-mutation",
+    DELETE_FOLLOW: "delete-follow-mutation",
   },
 };

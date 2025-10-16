@@ -6,6 +6,7 @@ const variants = {
   primary: "bg-amber-400 text-zinc-800 shadow-lg hover:bg-amber-500",
   secondary: "bg-zinc-300 hover:bg-zinc-400",
   outlined: "border border-zinc-300 hover:bg-zinc-200",
+  danger: "bg-red-500 text-white shadow-lg hover:bg-red-600",
 };
 
 const sizes = {

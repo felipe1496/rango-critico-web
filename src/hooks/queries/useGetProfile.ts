@@ -9,7 +9,12 @@ export type GetProfileResponse = {
       username: string;
       name: string;
       avatar_url?: string | null;
+      followers: number;
+      following: number;
     };
+  };
+  metadata: {
+    following: boolean;
   };
 };
 
@@ -19,7 +24,7 @@ export const useGetProfile = ({
   ...props
 }: Query<GetProfileResponse> & { username: string }) => {
   return useQuery({
-    queryKey: [QUERY_KEYS.QUERIES.GET_PROFILE, ...queryKey],
+    queryKey: [QUERY_KEYS.QUERIES.GET_PROFILE, username, ...queryKey],
     queryFn: async () => {
       const { data } = await api.get(`/v1/profiles/${username}`);
 
